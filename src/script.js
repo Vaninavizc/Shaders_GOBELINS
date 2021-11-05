@@ -5,6 +5,7 @@ import vertexShader from './shaders/test/vertex.glsl'
 import fragmentShader from './shaders/test/fragment.glsl'
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min'
+import gsap from "gsap";
 
 var gui = new GUI();
 var mouse, raycaster; 
@@ -54,8 +55,8 @@ raycaster = new THREE.Raycaster();
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 1
-camera.position.y = 0
-camera.position.z = 9
+camera.position.y = 9   
+camera.position.z = 0
 scene.add(camera)
 
 // Controls
@@ -87,17 +88,20 @@ const material = new THREE.RawShaderMaterial({
     vertexShader,
     fragmentShader,
     wireframe: true,
+    color: 0xFF0000,
     // transparent: true,
     uniforms: {
         uFrequency: {value : new THREE.Vector2(20, 20)},
         uTime : { value: 1 }
     }
+    
 })
 
 const material2 = new THREE.RawShaderMaterial({
     vertexShader,
     fragmentShader,
     wireframe: true,
+    vertexColors: true,
     uniforms: {
         uFrequency: {value : new THREE.Vector2(0, 20)},
         uTime : { value: 1 }
@@ -132,6 +136,8 @@ var points3 = points.clone()
 points3.position.set(-3, 0, 0)
 scene.add(points3)
 
+var allPoints = [points, points2, points3]
+
 gui.add(material.uniforms.uFrequency.value, 'x').min(0).max(20).step(0.01).name('frequencyX')
 gui.add(material.uniforms.uFrequency.value, 'y').min(0).max(20).step(0.01).name('frequencyY')
 gui.add(material2.uniforms.uFrequency.value, 'x').min(0).max(20).step(0.01).name('frequencyX material 2')
@@ -145,6 +151,8 @@ const mesh2 = new THREE.Mesh(geometry, material2)
 mesh2.position.x = 3
 mesh2.position.y = 0
 mesh2.position.z = 0
+
+
 
 const mesh3 = new THREE.Mesh(geometry, material3)
 mesh3.position.x = -3
@@ -196,19 +204,23 @@ const tick = () =>
     raycaster.setFromCamera( mouse, camera );
     const intersects = raycaster.intersectObject( mesh );
 
-
-
-
 	for ( let i = 0; i < intersects.length; i ++ ) {
         // console.log(intersects[i].faceIndex)
         window.addEventListener('mousedown', ()=> {
+
+            var cameraZoomTween = new gsap.timeline();
+            cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 2}, 0);
+            cameraZoomTween.play();
+
             // var points4 = points.clone()
             // points4.position.set(1, Math.random() * i, 1);
             // scene.add(points4)
-            camera.position.z = 0
-            camera.position.x = 0
-            camera.position.y = 0
+            // camera.position.z = 0
+            // camera.position.x = 0
+            // camera.position.y = 0
         });
+
+
 	}
 
 
