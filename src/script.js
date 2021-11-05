@@ -221,18 +221,18 @@ const tick = () =>
 
 
         // console.log(intersects[i].faceIndex)
-        window.addEventListener('mousedown', ()=> {
-            // console.log(mesh)
-            // var cameraZoomTween = new gsap.timeline();
-            // cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 2}, 0);
-            // cameraZoomTween.play();
-            var cameraZoomTweenBack = new gsap.timeline();
-            cameraZoomTweenBack.to( camera.position, {x:1, y:0, z: 10, duration: 2}, 0);
-            cameraZoomTweenBack.play();
-        });
+        // window.addEventListener('mousedown', ()=> {
+        //     // console.log(mesh)
+        //     // var cameraZoomTween = new gsap.timeline();
+        //     // cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 2}, 0);
+        //     // cameraZoomTween.play();
+        //     var cameraZoomTweenBack = new gsap.timeline();
+        //     cameraZoomTweenBack.to( camera.position, {x:1, y:0, z: 10, duration: 2}, 0);
+        //     cameraZoomTweenBack.play();
+        // });
 
 
-        window.addEventListener('mousedown', ()=> {
+        window.addEventListener('click', ()=> {
             var cameraZoomTween = new gsap.timeline();
             cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 4}, 0);
             cameraZoomTween.play();
