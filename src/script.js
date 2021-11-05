@@ -92,6 +92,8 @@ const material = new THREE.RawShaderMaterial({
     // transparent: true,
     uniforms: {
         uFrequency: {value : new THREE.Vector2(20, 20)},
+        uColor1: { value : new THREE.Color(0xE0A458) },
+        uColor2: { value : new THREE.Color(0xCF8626) },
         uTime : { value: 1 }
     }
     
@@ -104,6 +106,8 @@ const material2 = new THREE.RawShaderMaterial({
     vertexColors: true,
     uniforms: {
         uFrequency: {value : new THREE.Vector2(0, 20)},
+        uColor1: { value : new THREE.Color(0x419D78) },
+        uColor2: { value : new THREE.Color(0x122B21) },
         uTime : { value: 1 }
     }
 })
@@ -115,6 +119,8 @@ const material3 = new THREE.RawShaderMaterial({
     wireframe: true,
     uniforms: {
         uFrequency: {value : new THREE.Vector2(5, 10)},
+        uColor1: { value : new THREE.Color(0xA8201A) },
+        uColor2: { value : new THREE.Color(0xE1453D) },
         uTime : { value: 1 }
     }
 })
@@ -136,7 +142,6 @@ var points3 = points.clone()
 points3.position.set(-3, 0, 0)
 scene.add(points3)
 
-var allPoints = [points, points2, points3]
 
 gui.add(material.uniforms.uFrequency.value, 'x').min(0).max(20).step(0.01).name('frequencyX')
 gui.add(material.uniforms.uFrequency.value, 'y').min(0).max(20).step(0.01).name('frequencyY')
@@ -160,8 +165,8 @@ mesh3.position.y = 0
 mesh3.position.z = 0
 
 
-scene.add(mesh2)
 scene.add(mesh)
+scene.add(mesh2)
 scene.add(mesh3)
 
 
@@ -205,20 +210,22 @@ const tick = () =>
     const intersects = raycaster.intersectObject( mesh );
 
 	for ( let i = 0; i < intersects.length; i ++ ) {
-        // console.log(intersects[i].faceIndex)
-        window.addEventListener('mousedown', ()=> {
 
-            var cameraZoomTween = new gsap.timeline();
-            cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 2}, 0);
-            cameraZoomTween.play();
-
-            // var points4 = points.clone()
-            // points4.position.set(1, Math.random() * i, 1);
-            // scene.add(points4)
-            // camera.position.z = 0
-            // camera.position.x = 0
-            // camera.position.y = 0
+        object.mesh.on('click', function() {
+            console.log('mesh clicked')
+            // var cameraZoomTween = new gsap.timeline();
+            // cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 2}, 0);
+            // cameraZoomTween.play();
         });
+
+
+        // console.log(intersects[i].faceIndex)
+        // window.addEventListener('mousedown', ()=> {
+        //     // console.log(mesh)
+        //     // var cameraZoomTween = new gsap.timeline();
+        //     // cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 2}, 0);
+        //     // cameraZoomTween.play();
+        // });
 
 
 	}
