@@ -211,21 +211,21 @@ const tick = () =>
 
 	for ( let i = 0; i < intersects.length; i ++ ) {
 
-        object.mesh.on('click', function() {
-            console.log('mesh clicked')
-            // var cameraZoomTween = new gsap.timeline();
-            // cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 2}, 0);
-            // cameraZoomTween.play();
-        });
-
-
-        // console.log(intersects[i].faceIndex)
-        // window.addEventListener('mousedown', ()=> {
-        //     // console.log(mesh)
+        // mesh.on('click', function() {
+        //     console.log('mesh clicked')
         //     // var cameraZoomTween = new gsap.timeline();
         //     // cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 2}, 0);
         //     // cameraZoomTween.play();
         // });
+
+
+        // console.log(intersects[i].faceIndex)
+        window.addEventListener('mousedown', ()=> {
+            // console.log(mesh)
+            var cameraZoomTween = new gsap.timeline();
+            cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 2}, 0);
+            cameraZoomTween.play();
+        });
 
 
 	}
