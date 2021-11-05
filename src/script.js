@@ -92,8 +92,8 @@ const material = new THREE.RawShaderMaterial({
     // transparent: true,
     uniforms: {
         uFrequency: {value : new THREE.Vector2(20, 20)},
-        uColor1: { value : new THREE.Color(0xE0A458) },
-        uColor2: { value : new THREE.Color(0xCF8626) },
+        uColor1: { value : new THREE.Color(0x5438DC) },
+        uColor2: { value : new THREE.Color(0xB4A8F0) },
         uTime : { value: 1 }
     }
     
@@ -106,8 +106,8 @@ const material2 = new THREE.RawShaderMaterial({
     vertexColors: true,
     uniforms: {
         uFrequency: {value : new THREE.Vector2(0, 20)},
-        uColor1: { value : new THREE.Color(0x419D78) },
-        uColor2: { value : new THREE.Color(0x122B21) },
+        uColor1: { value : new THREE.Color(0xF3B700) },
+        uColor2: { value : new THREE.Color(0xE57C04) },
         uTime : { value: 1 }
     }
 })
@@ -119,8 +119,8 @@ const material3 = new THREE.RawShaderMaterial({
     wireframe: true,
     uniforms: {
         uFrequency: {value : new THREE.Vector2(5, 10)},
-        uColor1: { value : new THREE.Color(0xA8201A) },
-        uColor2: { value : new THREE.Color(0xE1453D) },
+        uColor1: { value : new THREE.Color(0x71816D) },
+        uColor2: { value : new THREE.Color(0xB4BDB2) },
         uTime : { value: 1 }
     }
 })
@@ -207,11 +207,12 @@ const tick = () =>
     const deltaTime = elapsedTime - lastElapsedTime
     lastElapsedTime = elapsedTime
     raycaster.setFromCamera( mouse, camera );
+    renderer.domElement.addEventListener( 'click', raycaster, true );
     const intersects = raycaster.intersectObject( mesh );
 
 	for ( let i = 0; i < intersects.length; i ++ ) {
 
-        // mesh.on('click', function() {
+        // intersects.on('click', function() {
         //     console.log('mesh clicked')
         //     // var cameraZoomTween = new gsap.timeline();
         //     // cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 2}, 0);
@@ -222,8 +223,24 @@ const tick = () =>
         // console.log(intersects[i].faceIndex)
         window.addEventListener('mousedown', ()=> {
             // console.log(mesh)
+            // var cameraZoomTween = new gsap.timeline();
+            // cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 2}, 0);
+            // cameraZoomTween.play();
+            var cameraZoomTweenBack = new gsap.timeline();
+            cameraZoomTweenBack.to( camera.position, {x:1, y:0, z: 10, duration: 2}, 0);
+            cameraZoomTweenBack.play();
+        });
+
+
+        window.addEventListener('mousedown', ()=> {
             var cameraZoomTween = new gsap.timeline();
-            cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 2}, 0);
+            cameraZoomTween.to( camera.position, {x:1, y:0, z: 0, duration: 4}, 0);
+            cameraZoomTween.play();
+        });
+
+        window.addEventListener('dblclick', ()=> {
+            var cameraZoomTween = new gsap.timeline();
+            cameraZoomTween.to( camera.position, {x:4, y:0, z: 0, duration: 4}, 0);
             cameraZoomTween.play();
         });
 
